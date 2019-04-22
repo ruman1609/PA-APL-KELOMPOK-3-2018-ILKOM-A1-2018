@@ -13,7 +13,7 @@ public class ProjectAkhir {
     static InputStreamReader isr=new InputStreamReader(System.in);
     static BufferedReader input = new BufferedReader(isr);
     
-    public static Connection getConnection(){
+    public static Connection getConnection(){//connect kan ke database
         Connection ConnectDB = null;
         try{
             Class.forName("com.mysql.jdbc.Driver");
@@ -60,7 +60,7 @@ public class ProjectAkhir {
         }
         return login;
     }
-    static void updateDriver(int number,String nama[],double rating[], int narik[], double total[]){
+    static void updateDriver(int number,String nama[],double rating[], int narik[], double total[]){// mengupdate data driver
         Connection connect = getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -77,7 +77,7 @@ public class ProjectAkhir {
             
         }
     }
-    static void readDriver(int number,String login[],double rating[],int narik[],double total[]){
+    static void readDriver(int number,String login[],double rating[],int narik[],double total[]){// masukin data driver ke variabel
         Connection connect = getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -144,12 +144,12 @@ public class ProjectAkhir {
         insert(i,user,pass,name);
         if(error){
             System.out.println("  Username sudah ada yang pakai");
-            loading(2);
+            loading(1);
             register(user,pass,name);
         }
         else{
-            System.out.println("\n\n     Selamat datang "+fname);
-            loading(3);
+            System.out.println("\n\n\n     Registrasi anda berhasil "+fname+"\n     Kembali ke menu utama");
+            loading(1);
             main(args);
         }
     }
@@ -189,12 +189,12 @@ public class ProjectAkhir {
         }
         if(found){
             nama = name[dapat];
-            System.out.println("   Selamat datang kembali "+name[dapat]);
+            System.out.println("\n\n\n   Selamat datang kembali "+name[dapat]);
             return nama;
         }
         else{
             System.out.println("  Username atau password tidak sesuai");
-            loading(2);
+            loading(1);
             return login(nama);
         }
     }
@@ -229,14 +229,14 @@ public class ProjectAkhir {
                    return huruf;
                }
                else{
-                   System.out.println("Tidak valid");
+                   System.out.println("Tidak valid, hanya boleh "+REGEX);
                }
            }
            else{
                try{
                    for(i=0;i<simbol.length;i++){
                        if(huruf.contains(simbol[i])){
-                           System.out.println("Tidak Valid");
+                           System.out.println("Tidak valid, tidak boleh ada "+simbol[i]);
                            break;
                        }
                        else return huruf;
@@ -264,7 +264,7 @@ public class ProjectAkhir {
                 }
             }
             catch(Exception e){
-                System.out.println("INPUTAN SALAH");
+                System.out.println("INPUTAN SALAH HANYA BOLEH ANGKA!");
                 run = true;
             }
         }while(run);
@@ -285,14 +285,14 @@ public class ProjectAkhir {
                 }
             }
             catch(Exception e){
-                System.out.println("INPUTAN SALAH");
+                System.out.println("INPUTAN SALAH HANYA BOLEH ANGKA!");
                 run = true;
             }
         }while(run);
         return n;
     }
     
-    private static void sortRating(String array[],double rating[],int narik[],double total[]){
+    private static void sortRating(String array[],double rating[],int narik[],double total[]){// sorting
         for(int i=0;i<array.length;i++){
             for(int j=0;j<array.length;j++){
                 if(rating[i]>rating[j]){// < buat ascending && > buat descending
@@ -334,7 +334,7 @@ public class ProjectAkhir {
     }
     static boolean foundAlp = false;
     static boolean foundBoss = false;
-    static int searchName(String array[],double rating[], int narik[],double total[], String key){
+    static int searchName(String array[],double rating[], int narik[],double total[], String key){//binary search
         int a=0, o=array.length, m;
         foundAlp=false;
         foundBoss=false;
@@ -361,27 +361,42 @@ public class ProjectAkhir {
     
     static void loading(int second){
         try{
-            Thread.sleep(second*1000);
+            Thread.sleep(second*1000);// loading berdasarkan detik
         }catch(Exception e){
             
         }
     }
     
-    static double tempat(int tj,int tw){
+    static double tempat(int tj,int tw){// lokasi berdasar kan di notepad urutan nya
         double total=0;
         double dis[][]=
-        {{0, 0.65, 0.65, 4.3, 0.85},
-         {0.65, 0, 1.1, 4.5, 1.4},
-         {0.65, 1.1, 0, 4.8, 0.55},
-         {4.3, 4.5, 4.8, 0, 3.6},
-         {0.85, 1.4, 0.55, 3.6, 0}
+        {{0, 0.35, 0.09, 0.35, 0.65, 0.7, 0.7, 0.45, 1.1, 1.7, 1.2, 1.1, 1.7, 0.3, 0.666, 0.65, 0.7, 0.4, 0.55, 1.1},  // FKTI
+         {0.35, 0, 0.35, 0.1, 0.35, 0.75, 0.5, 0.6, 1.2, 1.8, 1.3, 1.1, 1.8, 0.4, 0.666, 0.75, 0.7, 0.35, 0.65, 1.2},
+         {0.09, 0.35, 0, 0.7, 0.6, 0.65, 0.7, 0.4, 1.1, 1.6, 1.2, 1, 1.6, 0.27, 0.666, 0.6, 0.65, 0.35, 0.5, 1},
+         {0.35, 0.1, 0.7, 0, 0.65, 1, 0.8, 0.9, 1.5, 2, 1.6, 1.4, 2, 0.75, 0.666, 1.1, 1, 0.65, 1, 1.4},
+         {0.65, 0.35, 0.6, 0.65, 0, 0.4, 0.13, 0.45, 0.8, 1.4, 0.9, 0.75, 1.4, 0.29, 0.666, 0.45, 0.35, 0.23, 0.5, 0.75},
+         {0.7, 0.75, 0.65, 1, 0.4, 0, 0.13, 0.3, 0.4, 1, 0.5, 0.35, 0.95, 0.4, 0.666, 0.13, 0.043, 0.5, 0.22, 0.4},
+         {0.7, 0.5, 0.7, 0.8, 0.13, 0.13, 0, 0.6, 0.7, 1.3, 0.8, 0.7, 1.2, 0.45, 0.666, 0.35, 0.29, 0.35, 0.45, 0.7},
+         {0.45, 0.6, 0.4, 0.9, 0.45, 0.3, 0.6, 0, 0.75, 1.3, 0.85, 0.7, 1.2, 0.14, 0.666, 0.22, 0.35, 0.22, 0.14, 0.7},
+         {0.75, 0.85, 0.65, 1.2, 0.8, 0.4, 0.7, 0.75, 1.4, 0.95, 0.8, 1.3, 0.45, 0.666, 0.35, 0.4, 0.27, 0.5, 0.27, 0.8},
+         {1.1, 1.2, 1.5, 1.1, 0.65, 1, 1.3, 1.3, 1.4, 0, 0.18, 0.7, 0.5, 0.8, 0.666, 0.7, 0.75, 0.6, 0.85, 0.6, 0.55},
+         {1.2, 1.3, 1.2, 1.6, 0.9, 0.5, 0.8, 0.85, 0.95, 0.5, 0, 0.55, 0.45, 0.65, 0.666, 0.55, 0.6, 0.75, 0.5, 0.45},
+         {1.1, 1.1, 1, 1.4, 0.75, 0.35, 0.7, 0.7, 0.8, 1, 0.55, 0, 1, 0.65, 0.666, 0.5, 0.65, 0.75, 0.5, 0.45},
+         {1.7, 1.8, 1.6, 2, 1.4, 0.95, 1.2, 1.2, 1.3, 0.15, 0.35, 0.85, 0, 1, 0.666, 0.85, 0.9, 1, 0.8, 0.75},
+         {0.3, 0.4, 0.27, 0.75, 0.29, 0.4, 0.45, 0.14, 0.45, 1.4, 0.9, 0.75, 1.3, 0, 0.666, 0.3, 0.35, 0.067, 0.21, 0.8},
+         {0.666, 0.666, 0.666, 0.666, 0.666, 0.666, 0.666, 0.666, 0.666, 0.666, 0.666, 0.666, 0.666, 0.666, 0.666, 0.666, 0.666, 0.666, 0.666, 0.666},
+         {0.65, 0.75, 0.6, 1.1, 0.45, 0.13, 0.35, 0.22, 0.5, 1.1, 0.6, 0.5, 1, 0.3, 0.666, 0, 0.071, 0.4, 0.12, 0.5},
+         {0.7, 0.7, 0.65, 1, 0.35, 0.043, 0.29, 0.35, 0.75, 1.3, 0.85, 0.7, 1.2, 0.5, 0.666, 0.24, 0, 0.45, 0.35, 0.7},
+         {0.4, 0.35, 0.35, 0.65, 0.23, 0.5, 0.35, 0.22, 0.5, 0.9, 1, 0.85, 1.4, 0.067, 0.666, 0.4, 0.6, 0, 0.3, 0.85},
+         {0.55, 0.65, 0.5, 1, 0.5, 0.22, 0.45, 0.14, 0.65, 1.2, 0.75, 0.6, 1.1, 0.21, 0.666, 0.12, 0.19, 0.3, 0, 0.6},
+         {1.1, 1.2, 1, 1.4, 0.75, 0.44, 0.7, 0.7, 0.35, 0.9, 0.45, 0.45, 0.85, 0.55, 0.666, 0.45, 0.5, 0.6, 0.3, 0} // GOR 27 SEPTEMBER
         };
         total = dis[tj][tw];
         return total;
     }
     
     public static void main(String[] args)throws IOException{
-        Scanner pil = new Scanner(System.in);
+        Scanner pil = new Scanner(System.in); // main variabel
         String us=null,pw=null,nm=null,star=null,key=null;
         int pilih[]=new int[3],biaya=1500;
         int batas = total(1);
@@ -389,9 +404,10 @@ public class ProjectAkhir {
         double rating[]=new double[batas];
         String driver[]=new String[batas];
         double all[]=new double[batas];//total
+        //akhir main variabel
         do{
-            System.out.println("\n\n\n     Selamat datang di Bon-Ceng");
-            System.out.println("    =============================");
+            System.out.println("\n\n\n     Selamat datang di Bon-Ceng Universitas Mulawarman");
+            System.out.println("    ===================================================");
             System.out.println("\n           * Menu *");
             System.out.println("        ***************");
             System.out.println("        *  1. Daftar  *");
@@ -404,12 +420,12 @@ public class ProjectAkhir {
                 case 1:
                     register(us,pw,nm);
                     System.out.print("   Anda akan dikembalikan ke menu utama\n Tunggu sebentar..");
-                    loading(3);
+                    loading(1);
                     break;
                 case 2:
                     nm=login(nm);
                     System.out.print(" Tunggu sebentar..");
-                    loading(3);
+                    loading(2);
                     do{
                         System.out.println("\n\n\n                  * Menu *");
                         System.out.println("         ****************************");
@@ -425,63 +441,35 @@ public class ProjectAkhir {
                                     boolean aotp=false;
                                     int tj,tw,out;
                                     int kerja=0;
-                                    double dis=0,total=0,bayar=0,bintang=0,jumlah;
-                                    String place[]={"Kampus FKTI","Pusat Komputer Un-Mul","Perpustakaan Un-Mul","Perpustakaan Daerah","Gelora 27 September Un-Mul"};
-                                    String nt=null,ntt=null;
+                                    double total=0,bayar=0,bintang=0,jumlah;
+                                    String place[]={"Kampus FKTI","Pusat Komputer FKTI","Kampus FAHUTAN","Kampus FMIPA","Kampus FISIPOL","Kampus FEB","Kampus FAPERTA","Kampus FKIP","Kampus FPIK","Kampus F.Hukum"
+                                            ,"Kampus F.Teknik","Kampus F.Kedokteran","Kampus F.KESMAS","Kampus F.Farmasi","Kampus FIB","Perpustakaan","Gedung Rektorat","Student Center","Gedung MPK","GOR 27 September"};
                                     do{
                                         aotp=false;
                                         System.out.println("\nSilahkan tentukan titik jemput");
-                                        System.out.print("1. Kampus FKTI\t\t\t4. Perpustakaan Daerah\n2. Pusat Komputer Un-Mul\t5. Gelora 27 September Un-Mul\n3. Perpustakaan Un-Mul\t\t6. Lainnya\nPilih: ");
+                                        System.out.println("**************************************************************************************************************************************************************************");
+                                        for(int i=0;i<place.length;i+=5) System.out.println("\t\t"+(i+1)+". "+place[i]+"   "+(i+2)+". "+place[i+1]+"   "+(i+3)+". "+place[i+2]+"   "+(i+4)+". "+place[i+3]+"   "+(i+5)+". "+place[i+4]+"\t\t");
+                                        System.out.println("**************************************************************************************************************************************************************************");
+                                        System.out.print("  Pilih: ");
                                         tj=inputNum(0)-1;
-                                        if(tj==5){
-                                            System.out.println("Masukkan nama tempat anda akan dijemput");
-                                            nt=disableAlp(nt,false,null,null,false,0);
-                                        }
                                         System.out.println("Silahkan tentukan tujuan");
-                                        System.out.print("1. Kampus FKTI\t\t\t4. Perpustakaan Daerah\n2. Pusat Komputer Un-Mul\t5. Gelora 27 September Un-Mul\n3. Perpustakaan Un-Mul\t\t6. Lainnya\nPilih: ");
+                                        System.out.println("**************************************************************************************************************************************************************************");
+                                        for(int i=0;i<place.length;i+=5) System.out.println("\t\t"+(i+1)+". "+place[i]+"   "+(i+2)+". "+place[i+1]+"   "+(i+3)+". "+place[i+2]+"   "+(i+4)+". "+place[i+3]+"   "+(i+5)+". "+place[i+4]+"\t\t");
+                                        System.out.println("**************************************************************************************************************************************************************************");
+                                        System.out.print("  Pilih: ");
                                         tw=inputNum(0)-1;
-                                        if(tw==5){
-                                            System.out.println(" Masukkan nama tempat anda akan dijemput");
-                                            ntt=disableAlp(nt,false,null,null,false,0);
-                                            System.out.print(" Masukkan jarak nya (dalam Km): ");
-                                            dis=Distance(0);
-                                        }
-                                        if((tj>=0&&tj<=5)&&(tw>=0&&tw<=5)){
-                                            if((tj>=0&&tj<=4)&&(tw>=0&&tw<=4)){
-                                                if(tj==tw){
-                                                    System.out.println(" Anda sudah berada di lokasi");
-                                                    aotp=true;
-                                                    break;
-                                                }
-                                                else{
-                                                    total=tempat(tj,tw)*1500;
-                                                    System.out.println(" Titik jemput:\n"+place[tj]);
-                                                    System.out.println(" Tujuan:\n"+place[tw]);
-                                                    System.out.println(" Biaya: Rp."+total);
-                                                    break;
-                                                }
-                                            }
-                                            else if(tj==5&&tw==5){
-                                                total=dis*1500;
-                                                System.out.println("Titik jemput:\n"+" "+nt);
-                                                System.out.println("Tujuan:\n"+" "+ntt);
-                                                System.out.println("Biaya: Rp."+total);
+                                        if((tj>=0&&tj<=19)&&(tw>=0&&tw<=19)){
+                                            if(tj==tw){
+                                                System.out.println(" Anda sudah berada di lokasi");
+                                                aotp=true;
                                                 break;
                                             }
-                                            else if((tj>=0&&tj<=4)&&tw==5){
-                                                total=dis*1500;
-                                                System.out.println(" Titik jemput:\n"+" "+place[tj]);
-                                                System.out.println(" Tujuan:\n"+" "+ntt);
-                                                System.out.println(" Biaya: Rp."+" "+total);
-                                                break;
-                                            }
-                                            else if(tj==5&&(tw>=0&&tw<=4)){
-                                                System.out.print(" Masukkan jarak nya dari "+nt+" ke "+place[tw]+"(dalam Km): ");
-                                                dis=Distance(0);
-                                                total=dis*1500;
-                                                System.out.println(" Titik jemput:\n"+nt);
+                                            else{
+                                                total=tempat(tj,tw)*1000;// harga nya 1000 per km.
+                                                System.out.println(" Titik jemput:\n"+place[tj]);
                                                 System.out.println(" Tujuan:\n"+place[tw]);
                                                 System.out.println(" Biaya: Rp."+total);
+                                                System.out.println(" Estimasi jarak "+tempat(tj,tw)+"-an km");
                                                 break;
                                             }
                                         }
@@ -505,20 +493,20 @@ public class ProjectAkhir {
                                     }
                                     else if(aotp==false){
                                         System.out.println("Sedang mencari driver..");
-                                        loading(3);
+                                        loading(2);
                                         int ojek=findDriver(driver,rating,narik,all);
                                         if(ojek==5){
                                             System.out.println("Mohon maaf driver kami sedang sibuk");
-                                            loading(3);
+                                            loading(2);
                                             System.exit(0);
                                         }
                                         kerja  = narik[ojek] + 1;
                                         System.out.println("\n  "+driver[ojek]+" sedang menuju ke tempat mu");
-                                        loading(2);
+                                        loading(1);
                                         System.out.println("  Driver sudah di tempat mu");
                                         loading(1);
                                         System.out.println("  Meluncur ke lokasi\n  Pegang yang erat-erat yaa");
-                                        loading(5);
+                                        loading(3);
                                         do{
                                             System.out.println(" Sudah sampai tujuan silahkan bayar ke driver nya sebesar\n Rp."+total);
                                             System.out.print("Bayar Rp.");
@@ -531,11 +519,11 @@ public class ProjectAkhir {
                                         double kembalian = bayar - total;
                                         System.out.println(" Kembalian nya Rp."+kembalian);
                                         System.out.println(" Terima kasih telah menggunakan aplikasi kami :)");
-                                        loading(3);
+                                        loading(1);
                                         do{
-                                            System.out.println(" Mohon berikan bintang untuk driver kami");
+                                            System.out.println("\n\n\n Mohon berikan bintang untuk driver kami");
                                             System.out.println(" Nama driver: "+driver[ojek]);
-                                            System.out.print(" Bintang: ");
+                                            System.out.print(" Bintang(*)(1-5): ");
                                             star=disableAlp(star,true,"[*]+",null,false,0);
                                             if(star.length()>=6){
                                                 System.out.println("Mohon maaf bintang hanya 5 digit saja");
@@ -543,13 +531,14 @@ public class ProjectAkhir {
                                             else{
                                                 bintang=Integer.valueOf(star.length());
                                                 System.out.println(" Terima kasih atas ulasan nya\n Semoga hari anda menyenangkan "+nm);
-                                                jumlah = bintang;
+                                                jumlah = bintang;//proses penghitungan biar update
                                                 all[ojek]+=jumlah;
                                                 bintang = all[ojek] / kerja;
                                                 rating[ojek]=bintang;
                                                 narik[ojek]=kerja;
                                                 sortRating(driver,rating,narik,all);
                                                 updating(driver,rating,narik,all);
+                                                //selesai
                                                 System.exit(0);
                                                 break;
                                             }
@@ -578,15 +567,15 @@ public class ProjectAkhir {
                                         key=disableAlp(key,true,"[A-Za-z]+",null,false,0);
                                         int nemu=searchName(driver,rating,narik,all,key);
                                         if(foundAlp){
-                                            System.out.println("\n Nama  : "+driver[nemu]);
+                                            System.out.println("\n\n Nama  : "+driver[nemu]);
                                             System.out.println(" Rating: "+rating[nemu]);
-                                            loading(3);
+                                            loading(1);
                                         }
                                         else{
                                             System.out.println("\n Nama driver tak terdaftar");
                                         }
                                         if(foundBoss){
-                                            System.out.println("\n Haifa sang CEO dari Bon-Ceng ini\n dan juga merupakan driver pertama dari Bon-Ceng\n Namun sekarang tidak aktif lagi.");
+                                            System.out.println("\n\n Haifa sang CEO dari Bon-Ceng ini\n dan juga merupakan driver pertama dari Bon-Ceng\n Namun sekarang tidak aktif lagi.");
                                         }
                                     }
                                     else System.out.println("Tidak terdaftar di pilihan");
