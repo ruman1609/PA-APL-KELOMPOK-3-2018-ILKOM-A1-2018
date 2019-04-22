@@ -398,7 +398,7 @@ public class ProjectAkhir {
     public static void main(String[] args)throws IOException{
         Scanner pil = new Scanner(System.in); // main variabel
         String us=null,pw=null,nm=null,star=null,key=null;
-        int pilih[]=new int[3],biaya=1500;
+        int pilih[]=new int[3];
         int batas = total(1);
         int narik[]=new int[batas];
         double rating[]=new double[batas];
@@ -446,16 +446,18 @@ public class ProjectAkhir {
                                             ,"Kampus F.Teknik","Kampus F.Kedokteran","Kampus F.KESMAS","Kampus F.Farmasi","Kampus FIB","Perpustakaan","Gedung Rektorat","Student Center","Gedung MPK","GOR 27 September"};
                                     do{
                                         aotp=false;
-                                        System.out.println("\nSilahkan tentukan titik jemput");
-                                        System.out.println("**************************************************************************************************************************************************************************");
-                                        for(int i=0;i<place.length;i+=5) System.out.println("\t\t"+(i+1)+". "+place[i]+"   "+(i+2)+". "+place[i+1]+"   "+(i+3)+". "+place[i+2]+"   "+(i+4)+". "+place[i+3]+"   "+(i+5)+". "+place[i+4]+"\t\t");
-                                        System.out.println("**************************************************************************************************************************************************************************");
+                                        System.out.println("\n   Silahkan tentukan titik jemput");
+                                        loading(1);
+                                        System.out.println("*******************************************************************************************************************************");
+                                        for(int i=0;i<place.length;i+=5) System.out.println("\t"+(i+1)+". "+place[i]+"    "+(i+2)+". "+place[i+1]+"    "+(i+3)+". "+place[i+2]+"    "+(i+4)+". "+place[i+3]+"    "+(i+5)+". "+place[i+4]+"\n       *****************************************************************************************************************");
+                                        System.out.println("*******************************************************************************************************************************");
                                         System.out.print("  Pilih: ");
                                         tj=inputNum(0)-1;
-                                        System.out.println("Silahkan tentukan tujuan");
-                                        System.out.println("**************************************************************************************************************************************************************************");
-                                        for(int i=0;i<place.length;i+=5) System.out.println("\t\t"+(i+1)+". "+place[i]+"   "+(i+2)+". "+place[i+1]+"   "+(i+3)+". "+place[i+2]+"   "+(i+4)+". "+place[i+3]+"   "+(i+5)+". "+place[i+4]+"\t\t");
-                                        System.out.println("**************************************************************************************************************************************************************************");
+                                        System.out.println("\n\n   Silahkan tentukan tujuan");
+                                        loading(1);
+                                        System.out.println("*******************************************************************************************************************************");
+                                        for(int i=0;i<place.length;i+=5) System.out.println("\t"+(i+1)+". "+place[i]+"    "+(i+2)+". "+place[i+1]+"    "+(i+3)+". "+place[i+2]+"    "+(i+4)+". "+place[i+3]+"    "+(i+5)+". "+place[i+4]+"\n       ***************************************************************************************************************");
+                                        System.out.println("*******************************************************************************************************************************");
                                         System.out.print("  Pilih: ");
                                         tw=inputNum(0)-1;
                                         if((tj>=0&&tj<=19)&&(tw>=0&&tw<=19)){
@@ -557,7 +559,7 @@ public class ProjectAkhir {
                                 loading(3);
                                 do{
                                     System.out.println("\n Ingin mencari driver andalan mu?\n (input 1 untuk iya atau 0 untuk tidak");
-                                    System.out.print(" Pilih:");
+                                    System.out.print(" Pilih: ");
                                     int search=inputNum(-1);
                                     if(search==0){
                                         break;
