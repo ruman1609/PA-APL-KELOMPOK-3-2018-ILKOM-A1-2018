@@ -449,14 +449,14 @@ public class ProjectAkhir {
                                         System.out.println("\n   Silahkan tentukan titik jemput");
                                         loading(1);
                                         System.out.println("*******************************************************************************************************************************");
-                                        for(int i=0;i<place.length;i+=5) System.out.println("\t"+(i+1)+". "+place[i]+"    "+(i+2)+". "+place[i+1]+"    "+(i+3)+". "+place[i+2]+"    "+(i+4)+". "+place[i+3]+"    "+(i+5)+". "+place[i+4]+"\n       *****************************************************************************************************************");
+                                        for(int i=0;i<5;i++) System.out.println("\t"+(i+1)+". "+place[i]+"            "+(i+6)+". "+place[i+5]+"            "+(i+11)+". "+place[i+10]+"            "+(i+16)+". "+place[i+15]+"\n       *****************************************************************************************************************");
                                         System.out.println("*******************************************************************************************************************************");
                                         System.out.print("  Pilih: ");
                                         tj=inputNum(0)-1;
                                         System.out.println("\n\n   Silahkan tentukan tujuan");
                                         loading(1);
                                         System.out.println("*******************************************************************************************************************************");
-                                        for(int i=0;i<place.length;i+=5) System.out.println("\t"+(i+1)+". "+place[i]+"    "+(i+2)+". "+place[i+1]+"    "+(i+3)+". "+place[i+2]+"    "+(i+4)+". "+place[i+3]+"    "+(i+5)+". "+place[i+4]+"\n       ***************************************************************************************************************");
+                                        for(int i=0;i<5;i++) System.out.println("\t"+(i+1)+". "+place[i]+"            "+(i+6)+". "+place[i+5]+"            "+(i+11)+". "+place[i+10]+"            "+(i+16)+". "+place[i+15]+"\n       *****************************************************************************************************************");
                                         System.out.println("*******************************************************************************************************************************");
                                         System.out.print("  Pilih: ");
                                         tw=inputNum(0)-1;
@@ -471,7 +471,8 @@ public class ProjectAkhir {
                                                 System.out.println(" Titik jemput:\n"+place[tj]);
                                                 System.out.println(" Tujuan:\n"+place[tw]);
                                                 System.out.println(" Biaya: Rp."+total);
-                                                System.out.println(" Estimasi jarak "+tempat(tj,tw)+"-an km");
+                                                System.out.println(" Estimasi jarak "+tempat(tj,tw)+"-an Km");
+                                                System.out.println(" Dengan biaya Rp.1000 per Km");
                                                 break;
                                             }
                                         }
@@ -584,16 +585,36 @@ public class ProjectAkhir {
                                 }while(true);
                                 break;
                             case 3:
-                                System.out.println("Terima kasih telah menggunakan aplikasi kami :)");
-                                System.exit(0);
+                                do{
+                                    System.out.println("\n\n  Apakah anda ingin keluar dari program");
+                                    System.out.println("  Tekan 1 untuk keluar / 0 untuk tidak");
+                                    int pilihanOUT=inputNum(-1);
+                                    if(pilihanOUT==1){
+                                        System.out.println("\n\nTerima kasih telah menggunakan aplikasi kami :)");
+                                        System.exit(0);
+                                    }
+                                    else if(pilihanOUT==0) break;
+                                    else System.out.println("Tidak ada di daftar");
+                                }while(true);
+                                break;
                             default:
                                 System.out.println("Tidak ada dalam daftar");
                                 break;
                         }
                     }while(true);
                 case 3:
-                    System.out.println("Terima kasih telah menggunakan aplikasi kami :)");
-                    System.exit(0);
+                    do{
+                        System.out.println("\n\n  Apakah anda ingin keluar dari program");
+                        System.out.println("  Tekan 1 untuk keluar / 0 untuk tidak");
+                        int pilihanOUT=inputNum(-1);
+                        if(pilihanOUT==1){
+                            System.out.println("\n\nTerima kasih telah menggunakan aplikasi kami :)");
+                            System.exit(0);
+                        }
+                        else if(pilihanOUT==0) break;
+                        else System.out.println("Tidak ada di daftar");
+                    }while(true);
+                    break;
                 default:
                     System.out.println("Tidak ada dalam daftar");
                     break;
