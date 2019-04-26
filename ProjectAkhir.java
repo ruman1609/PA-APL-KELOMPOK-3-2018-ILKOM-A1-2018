@@ -252,10 +252,12 @@ public class ProjectAkhir {
     static int inputNum(int batas){
         boolean run = true;
         int n=0;
+        String numbah=null;
         do{
-            Scanner angka=new Scanner(System.in);
+            BufferedReader angka = new BufferedReader(isr);
             try{
-                n=angka.nextInt();
+                numbah=angka.readLine();
+                n=Integer.valueOf(numbah);
                 if(n>batas){
                     run = false;
                 }
